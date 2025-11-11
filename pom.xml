@@ -16,7 +16,7 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
-    <dependencies>        
+    <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -34,11 +34,11 @@
     <build>
         <plugins>
             <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-surefire-plugin</artifactId>
-              <version>3.3.0</version>
-              <configuration>
-                <skipTests>false</skipTests>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <skipTests>false</skipTests>
               </configuration>
             </plugin>
             <plugin>
