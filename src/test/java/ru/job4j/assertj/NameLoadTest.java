@@ -36,4 +36,12 @@ class NameLoadTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("key=");
     }
+
+    @Test
+    void checkEmpty() {
+        NameLoad nameLoad = new NameLoad();
+        assertThatThrownBy(nameLoad::getMap)
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("collection contains no data");
+    }
 }
