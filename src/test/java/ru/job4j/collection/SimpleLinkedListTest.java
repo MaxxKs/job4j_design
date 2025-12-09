@@ -93,7 +93,7 @@ class SimpleLinkedListTest {
     }
 
     @Test
-    void whenAddAfterGetIteratorThenMustBeException () {
+    void whenAddAfterGetIteratorThenMustBeException() {
         Iterator<Integer> iterator = list.iterator();
         list.add(3);
         assertThatThrownBy(iterator::next)
