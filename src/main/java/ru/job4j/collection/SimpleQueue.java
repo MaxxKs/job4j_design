@@ -5,8 +5,8 @@ import java.util.NoSuchElementException;
 public class SimpleQueue<T> {
     private final SimpleStack<T> input = new SimpleStack<>();
     private final SimpleStack<T> output = new SimpleStack<>();
-    int sizeIn = 0;
-    int sizeOut = 0;
+    private int sizeIn = 0;
+    private int sizeOut = 0;
 
     public T poll() {
         if (sizeOut > 0) {
