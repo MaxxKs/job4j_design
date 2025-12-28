@@ -60,7 +60,7 @@ class SimpleArraySetTest {
     }
 
     @Test
-    void whenAddDifferentTypes() {
+    void whenAddStringElements() {
         SimpleSet<String> set = new SimpleArraySet<>();
         assertThat(set.add("Hello")).isTrue();
         assertThat(set.add("World")).isTrue();
