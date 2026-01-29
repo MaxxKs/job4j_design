@@ -86,15 +86,15 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
 
     private void expand() {
         MapEntry<K, V>[] newTable = new MapEntry[capacity * 2];
+        capacity *= 2;
         for (MapEntry<K, V> mapEntry : table) {
             if (mapEntry != null) {
                 int h = Objects.hashCode(mapEntry.key);
                 int hash = hash(h);
-                int index = hash & (newTable.length - 1);
+                int index = indexFor(hash);
                 newTable[index] = mapEntry;
             }
         }
-        capacity *= 2;
         table = newTable;
     }
 
@@ -114,7 +114,7 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
     }
 
     private int indexFor(int hash) {
-        return hash & (table.length - 1);
+        return hash & (capacity - 1);
     }
 
     private static class MapEntry<K, V> {
