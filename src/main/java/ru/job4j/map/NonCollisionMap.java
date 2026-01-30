@@ -35,7 +35,6 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
         if (table[i] != null && keysEqual(table[i].key, key)) {
             return table[i].value;
         }
-
         return null;
     }
 
