@@ -12,20 +12,20 @@ public class EvenNumberFile {
                 if (read >= '0' && read <= '9') {
                     numbers.append((char) read);
                 } else if (read == '\n') {
-                    if (!numbers.isEmpty()) {
-                        int number = Integer.parseInt(numbers.toString());
-                        System.out.println(number + " - " + (number % 2 == 0 ? "четное" : "нечетное"));
-                        numbers.setLength(0);
-                    }
+                    process(numbers);
                 }
             }
-            if (!numbers.isEmpty()) {
-                int number = Integer.parseInt(numbers.toString());
-                System.out.println(number + " - " + (number % 2 == 0 ? "четное" : "нечетное"));
-                numbers.setLength(0);
-            }
+            process(numbers);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void process(StringBuilder numbers) {
+        if (!numbers.isEmpty()) {
+            int number = Integer.parseInt(numbers.toString());
+            System.out.println(number + " - " + (number % 2 == 0 ? "четное" : "нечетное"));
+            numbers.setLength(0);
         }
     }
 }
