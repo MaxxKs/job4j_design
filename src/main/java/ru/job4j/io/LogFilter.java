@@ -19,7 +19,7 @@ public class LogFilter {
             return input.lines()
                     .map(el -> el.split(" "))
                     .filter(array -> array.length >= 2
-                            && array[array.length - 2].equals("404"))
+                            && "404".equals(array[array.length - 2]))
                     .map(array -> String.join(" ", array))
                     .collect(Collectors.toList());
         } catch (IOException e) {
