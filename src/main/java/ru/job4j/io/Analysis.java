@@ -9,8 +9,9 @@ public class Analysis {
             String startTime = null;
             boolean flag = false;
             String line;
+            String[] array;
             while ((line = input.readLine()) != null) {
-                String[] array = line.trim()
+                array = line.trim()
                         .split(" ");
                 int status = Integer.parseInt(array[0]);
                 if (status >= 400) {
@@ -20,7 +21,11 @@ public class Analysis {
                     }
                 } else if (status <= 300) {
                     if (flag) {
-                        output.println(startTime + ";" + array[1] + ";");
+                        output.println(new StringBuilder()
+                                .append(startTime)
+                                .append(";")
+                                .append(array[1])
+                                .append(";"));
                         flag = false;
                     }
                 }
