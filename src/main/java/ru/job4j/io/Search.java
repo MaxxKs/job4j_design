@@ -8,16 +8,7 @@ import java.nio.file.Files;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        validateArgs(args);
-        Path start = Path.of(args[0]);
-        if (!Files.exists(start)) {
-            throw new IllegalArgumentException(
-                    String.format("Директория не существует: %s", start));
-        }
-        if (!Files.isDirectory(start)) {
-            throw new IllegalArgumentException(
-                    String.format("Это не директория: %s", start));
-        }
+        Path start = validateArgs(args);
         String extension = args[1];
         search(start, path -> path.toFile()
                 .getName()
@@ -32,13 +23,22 @@ public class Search {
         return searcher.getPaths();
     }
 
-    public static void validateArgs(String[] args) {
+    public static Path validateArgs(String[] args) {
         if (args.length != 2) {
             throw new IllegalArgumentException(
                     "Root folder is null or file extension not specified.\n"
                             + "Usage  ROOT_FOLDER\n"
                             + "FILE_EXTENSION\n");
         }
+        Path start = Path.of(args[0]);
+        if (!Files.exists(start)) {
+            throw new IllegalArgumentException(
+                    String.format("Директория не существует: %s", start));
+        }
+        if (!Files.isDirectory(start)) {
+            throw new IllegalArgumentException(
+                    String.format("Это не директория: %s", start));
+        }
+        return start;
     }
 }
-
