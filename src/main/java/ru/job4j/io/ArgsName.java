@@ -15,31 +15,36 @@ public class ArgsName {
         return values.get(key);
     }
 
+    private String[] validateArgs(String arg) {
+        if (arg.isEmpty()) {
+            throw new IllegalArgumentException("Error: argument is empty");
+        }
+        if (!arg.startsWith("-")) {
+            throw new IllegalArgumentException(
+                    String.format("Error: This argument '%s' does not start with a '-' character", arg));
+        }
+        int index = arg.indexOf('=');
+        if (index == -1) {
+            throw new IllegalArgumentException(
+                    String.format("Error: This argument '%s' does not contain an equal sign", arg));
+        }
+        String key = arg.substring(1, index);
+        String value = arg.substring(index + 1);
+        if (key.isEmpty()) {
+            throw new IllegalArgumentException(
+                    String.format("Error: This argument '%s' does not contain a key", arg));
+        }
+        if (value.isEmpty()) {
+            throw new IllegalArgumentException(
+                    String.format("Error: This argument '%s' does not contain a value", arg));
+        }
+        return new String[]{key, value};
+    }
+
     private void parse(String[] args) {
         for (String arg : args) {
-            if (arg.isEmpty()) {
-                throw new IllegalArgumentException("Error: argument is empty");
-            }
-            if (!arg.startsWith("-")) {
-                throw new IllegalArgumentException(
-                        String.format("Error: This argument '%s' does not start with a '-' character", arg));
-            }
-            int index = arg.indexOf('=');
-            if (index == -1) {
-                throw new IllegalArgumentException(
-                        String.format("Error: This argument '%s' does not contain an equal sign", arg));
-            }
-            String key = arg.substring(1, index);
-            String value = arg.substring(index + 1);
-            if (key.isEmpty()) {
-                throw new IllegalArgumentException(
-                        String.format("Error: This argument '%s' does not contain a key", arg));
-            }
-            if (value.isEmpty()) {
-                throw new IllegalArgumentException(
-                        String.format("Error: This argument '%s' does not contain a value", arg));
-            }
-            values.put(key, value);
+            String[] result = validateArgs(arg);
+            values.put(result[0], result[1]);
         }
     }
 
