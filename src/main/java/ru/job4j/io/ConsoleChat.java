@@ -30,11 +30,11 @@ public class ConsoleChat {
         while (running) {
             String input = scanner.nextLine();
             log.add(String.format("User: %s", input));
-            if (input.equalsIgnoreCase(OUT)) {
+            if (OUT.equalsIgnoreCase(input)) {
                 running = false;
-            } else if (input.equalsIgnoreCase(STOP)) {
+            } else if (STOP.equalsIgnoreCase(input)) {
                 isSilent = true;
-            } else if (input.equalsIgnoreCase(CONTINUE)) {
+            } else if (CONTINUE.equalsIgnoreCase(input)) {
                 isSilent = false;
             } else {
                 if (!isSilent && !phrases.isEmpty()) {

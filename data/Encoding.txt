@@ -1,16 +1,14 @@
 User: Привет
-Answers bot: Сегодня отличная погода.
+Answers bot: Хорошего дня!
 User: Как дела?
-Answers bot: Расскажи подробнее.
+Answers bot: Сегодня отличная погода.
 User: Подробнее
-Answers bot: Чем могу помочь?
+Answers bot: Расскажи подробнее.
 User: стоп
 User: привет
-User: помочь
+User: привет
+User: привет
 User: продолжить
 User: привет
-Answers bot: Пока!
-User: продолжить
-User: привет
-Answers bot: Не могу сейчас говорить.
+Answers bot: Чем могу помочь?
 User: закончить
