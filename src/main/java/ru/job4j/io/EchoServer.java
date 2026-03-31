@@ -22,9 +22,9 @@ public class EchoServer {
                         int end = string.indexOf(" HTTP/1.1");
                         if (start != -1 && end != -1 && start < end) {
                             result = string.substring(start + 1, end);
-                            if ("Exit".equals(result)) {
-                                server.close();
-                            }
+                        }
+                        if ("Exit".equals(result)) {
+                            server.close();
                         }
                         System.out.println(string);
                     }
