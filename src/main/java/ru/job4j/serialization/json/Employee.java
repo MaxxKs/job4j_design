@@ -17,6 +17,26 @@ public class Employee {
         this.languages = languages;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public boolean isDeveloper() {
+        return isDeveloper;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public String[] getLanguages() {
+        return languages;
+    }
+
     @Override
     public String toString() {
         return "Employee{"
