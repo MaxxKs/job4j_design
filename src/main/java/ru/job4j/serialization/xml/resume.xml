@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<employee name="Oleg" age="30" isDeveloper="false">
+    <contact phone="+7-911-111-11-11"/>
+    <languages>
+        <language>English</language>
+        <language>Czech</language>
+        <language>French</language>
+    </languages>
+</employee>
