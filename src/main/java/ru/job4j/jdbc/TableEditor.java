@@ -1,5 +1,6 @@
 package ru.job4j.jdbc;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -13,7 +14,7 @@ public class TableEditor implements AutoCloseable {
 
     private Properties properties;
 
-    public TableEditor(Properties properties) throws Exception {
+    public TableEditor(Properties properties) throws ClassNotFoundException, SQLException {
         this.properties = properties;
         initConnection();
     }
@@ -26,47 +27,48 @@ public class TableEditor implements AutoCloseable {
         connection = DriverManager.getConnection(url, user, password);
     }
 
-    private void executeSQL(String sql) throws Exception {
+    private void executeSQL(String sql) {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void createTable(String tableName) throws Exception {
+    public void createTable(String tableName) {
         executeSQL(String.format(
                 "CREATE TABLE IF NOT EXISTS %s ();", tableName
         ));
     }
 
-
-    public void dropTable(String tableName) throws Exception {
+    public void dropTable(String tableName) {
         executeSQL(String.format(
                 "DROP TABLE %s;", tableName
         ));
     }
 
-    public void addColumn(String tableName, String columnName, String type) throws Exception {
+    public void addColumn(String tableName, String columnName, String type) {
        executeSQL(String.format(
                "ALTER TABLE %s ADD COLUMN %s %s;",
                tableName, columnName, type
        ));
     }
 
-    public void dropColumn(String tableName, String columnName) throws Exception {
+    public void dropColumn(String tableName, String columnName) {
         executeSQL(String.format(
                 "ALTER TABLE %s DROP COLUMN %s;",
                 tableName, columnName
         ));
     }
 
-    public void renameColumn(String tableName, String columnName, String newColumnName) throws Exception {
+    public void renameColumn(String tableName, String columnName, String newColumnName) {
        executeSQL(String.format(
                "ALTER TABLE %s RENAME COLUMN %s TO %s;",
                tableName, columnName, newColumnName
        ));
     }
 
-    public String getTableScheme(String tableName) throws Exception {
+    public String getTableScheme(String tableName) {
         var rowSeparator = "-".repeat(30).concat(System.lineSeparator());
         var header = String.format("%-15s|%-15s%n", "NAME", "TYPE");
         var buffer = new StringJoiner(rowSeparator, rowSeparator, rowSeparator);
@@ -81,22 +83,27 @@ public class TableEditor implements AutoCloseable {
                         metaData.getColumnName(i), metaData.getColumnTypeName(i))
                 );
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return buffer.toString();
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() throws SQLException {
         if (connection != null) {
             connection.close();
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Properties properties = new Properties();
         try (InputStream in = TableEditor.class.getClassLoader()
                 .getResourceAsStream("app.properties")) {
             properties.load(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
         }
 
         try (TableEditor editor = new TableEditor(properties)) {
@@ -113,7 +120,8 @@ public class TableEditor implements AutoCloseable {
             System.out.println(editor.getTableScheme("test_table"));
 
             editor.dropTable("test_table");
-
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
         }
     }
 }
